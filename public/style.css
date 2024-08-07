@@ -43,7 +43,7 @@ body {
   margin-left: auto;
 }
 
-form {
+form, #results {
   margin: 20px auto;
   width: 300px; /* Center the form and make it narrower */
   background-color: #fff;
