@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 import random
 
 app = Flask(__name__)
+CORS(app)
 
 tot = 1000
 key = {"Steal": 1, "Split": 0}
@@ -33,6 +35,53 @@ strategies = {
     "Random": random_choice
 }
 
+@app.route('/api/strategies', methods=['GET'])
+def strategies_list():
+    return jsonify(list(strategies.keys()))
+
+@app.route('/api/play', methods=['POST'])
+def play():
+    try:
+        data = request.json
+        s1 = data['strategy1']
+        s2 = data['strategy2']
+        rounds = data['rounds']
+        
+        m1, m2 = 0, 0
+        history1, history2 = [], []
+        results = []
+        
+        for _ in range(rounds):
+            choice1 = strategies[s1](history2)
+            choice2 = strategies[s2](history1)
+            history1.append(choice1)
+            history2.append(choice2)
+            round_m1, round_m2 = game(choice1, choice2)
+            m1 += round_m1
+            m2 += round_m2
+            results.append({
+                'round': _ + 1,
+                'choice1': list(key.keys())[list(key.values()).index(choice1)],
+                'choice2': list(key.keys())[list(key.values()).index(choice2)],
+                'm1': m1,
+                'm2': m2
+            })
+        
+        winner = "Bot1 Win" if m1 > m2 else "Bot2 Win" if m2 > m1 else "Draw"
+        
+        response = jsonify({
+            'results': results,
+            'final_m1': m1,
+            'final_m2': m2,
+            'winner': winner
+        })
+        
+        response.headers.add('Content-Type', 'application/json')
+        return response
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"error": str(e)}), 500
+
 def game(choice1, choice2):
     if choice1 == 0 and choice2 == 0:
         return tot // 2, tot // 2
@@ -43,45 +92,5 @@ def game(choice1, choice2):
     else:
         return 0, 0
 
-@app.route('/api/strategies', methods=['GET'])
-def strategies_list():
-    return jsonify(list(strategies.keys()))
-
-@app.route('/api/play', methods=['POST'])
-def play():
-    data = request.json
-    s1 = data['strategy1']
-    s2 = data['strategy2']
-    rounds = data['rounds']
-    
-    m1, m2 = 0, 0
-    history1, history2 = [], []
-    results = []
-    
-    for _ in range(rounds):
-        choice1 = strategies[s1](history2)
-        choice2 = strategies[s2](history1)
-        history1.append(choice1)
-        history2.append(choice2)
-        round_m1, round_m2 = game(choice1, choice2)
-        m1 += round_m1
-        m2 += round_m2
-        results.append({
-            'round': _ + 1,
-            'choice1': list(key.keys())[list(key.values()).index(choice1)],
-            'choice2': list(key.keys())[list(key.values()).index(choice2)],
-            'm1': m1,
-            'm2': m2
-        })
-    
-    winner = "Bot1 Win" if m1 > m2 else "Bot2 Win" if m2 > m1 else "Draw"
-    
-    return jsonify({
-        'results': results,
-        'final_m1': m1,
-        'final_m2': m2,
-        'winner': winner
-    })
-
-def handler(event, context):
-    return app(event, context)
+if __name__ == '__main__':
+    app.run(debug=True)
