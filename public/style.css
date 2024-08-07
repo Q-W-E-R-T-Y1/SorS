@@ -47,7 +47,7 @@ body {
 }
 form, #results {
   
-  margin: 20px auto;
+  /* margin: 20px auto; */
   width: 30%; /* Center the form and make it narrower */
   background-color: #fff;
   padding: 20px;
