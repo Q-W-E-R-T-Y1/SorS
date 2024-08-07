@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 option2.text = strategy;
                 strategy2Select.add(option2);
             });
-        });
+        })
+        .catch(error => console.error('Error fetching strategies:', error));
 
     document.getElementById('gameForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -40,6 +41,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultsHtml += `<h3>Final Score - Bot1: ${data.final_m1}, Bot2: ${data.final_m2}</h3>`;
             resultsHtml += `<h3>Result: ${data.winner}</h3>`;
             document.getElementById('results').innerHTML = resultsHtml;
-        });
+        })
+        .catch(error => console.error('Error playing game:', error));
     });
 });
