@@ -1,6 +1,11 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch('/api/strategies')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             let strategy1Select = document.getElementById('strategy1');
             let strategy2Select = document.getElementById('strategy2');
