@@ -48,7 +48,7 @@ body {
 form, #results {
   
   margin: 20px auto;
-  width: 300px; /* Center the form and make it narrower */
+  width: 40%; /* Center the form and make it narrower */
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -56,7 +56,7 @@ form, #results {
   text-align: center; /* Center the form contents */
 }
 #results{
-  width:65%;
+  width:55%;
   visibility: hidden;
 }
 label {
