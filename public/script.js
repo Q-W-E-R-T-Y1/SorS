@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    // Fetch strategies from the backend
     fetch('/api/strategies')
         .then(response => {
             if (!response.ok) {
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         })
         .catch(error => console.error('Error fetching strategies:', error));
 
-    // Handle form submission
     document.getElementById('gameForm').addEventListener('submit', function(e) {
         e.preventDefault();
         
