@@ -1,11 +1,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     fetch('/api/strategies')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             let strategy1Select = document.getElementById('strategy1');
             let strategy2Select = document.getElementById('strategy2');
@@ -21,8 +16,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 option2.text = strategy;
                 strategy2Select.add(option2);
             });
-        })
-        .catch(error => console.error('Error fetching strategies:', error));
+        });
 
     document.getElementById('gameForm').addEventListener('submit', function(e) {
         e.preventDefault();
@@ -37,12 +31,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 rounds: parseInt(document.getElementById('rounds').value)
             }),
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             let resultsHtml = '<h2>Results:</h2>';
             data.results.forEach(result => {
@@ -51,7 +40,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultsHtml += `<h3>Final Score - Bot1: ${data.final_m1}, Bot2: ${data.final_m2}</h3>`;
             resultsHtml += `<h3>Result: ${data.winner}</h3>`;
             document.getElementById('results').innerHTML = resultsHtml;
-        })
-        .catch(error => console.error('Error playing game:', error));
+        });
     });
 });
