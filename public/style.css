@@ -48,7 +48,7 @@ body {
 form, #results {
   
   margin: 20px auto;
-  width: 40%; /* Center the form and make it narrower */
+  width: 30%; /* Center the form and make it narrower */
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -67,7 +67,7 @@ label {
 }
 
 select, input[type="number"] {
-  width: 100%;
+  width: 90%;
   padding: 8px; /* Reduce padding to make the inputs thinner */
   margin-bottom: 20px;
   border: 1px solid #ccc;
