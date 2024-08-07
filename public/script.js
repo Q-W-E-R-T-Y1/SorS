@@ -32,7 +32,12 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 rounds: parseInt(document.getElementById('rounds').value)
             }),
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
         .then(data => {
             let resultsHtml = '<h2>Results:</h2>';
             data.results.forEach(result => {

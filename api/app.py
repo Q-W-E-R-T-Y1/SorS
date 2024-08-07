@@ -1,7 +1,10 @@
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 import random
 
 app = Flask(__name__)
+
+tot = 1000
+key = {"Steal": 1, "Split": 0}
 
 def random_choice(ds):
     return random.choice([0, 1])
@@ -30,9 +33,15 @@ strategies = {
     "Random": random_choice
 }
 
-@app.route('/api/strategies', methods=['GET'])
-def strategies_list():
-    return jsonify(list(strategies.keys()))
+def game(choice1, choice2):
+    if choice1 == 0 and choice2 == 0:
+        return tot // 2, tot // 2
+    elif choice1 == 1 and choice2 == 0:
+        return tot, 0
+    elif choice1 == 0 and choice2 == 1:
+        return 0, tot
+    else:
+        return 0, 0
 
 @app.route('/api/play', methods=['POST'])
 def play():
@@ -63,22 +72,15 @@ def play():
     
     winner = "Bot1 Win" if m1 > m2 else "Bot2 Win" if m2 > m1 else "Draw"
     
-    return jsonify({
+    response = jsonify({
         'results': results,
         'final_m1': m1,
         'final_m2': m2,
         'winner': winner
     })
-
-def game(choice1, choice2):
-    if choice1 == 0 and choice2 == 0:
-        return tot // 2, tot // 2
-    elif choice1 == 1 and choice2 == 0:
-        return tot, 0
-    elif choice1 == 0 and choice2 == 1:
-        return 0, tot
-    else:
-        return 0, 0
+    
+    response.headers.add('Content-Type', 'application/json')
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
