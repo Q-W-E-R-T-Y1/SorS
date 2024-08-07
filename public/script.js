@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', (event) => {
-    fetch('https://your-backend-url.com/strategies')
+    fetch('/api/strategies')
         .then(response => response.json())
         .then(data => {
             let strategy1Select = document.getElementById('strategy1');
             let strategy2Select = document.getElementById('strategy2');
 
-            data.strategies.forEach(strategy => {
+            data.forEach(strategy => {
                 let option1 = document.createElement('option');
                 option1.value = strategy;
                 option1.text = strategy;
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     document.getElementById('gameForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        fetch('https://your-backend-url.com/play', {
+        fetch('/api/play', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
