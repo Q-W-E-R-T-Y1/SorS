@@ -42,8 +42,11 @@ body {
   display: flex;
   margin-left: auto;
 }
-
+#parent{
+  display: inline;
+}
 form, #results {
+  
   margin: 20px auto;
   width: 300px; /* Center the form and make it narrower */
   background-color: #fff;
@@ -52,7 +55,10 @@ form, #results {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center; /* Center the form contents */
 }
-
+#results{
+  width:65%;
+  visibility: hidden;
+}
 label {
   display: block;
   margin-bottom: 8px;

@@ -58,6 +58,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             resultsHtml += `<h3>Final Score - Bot1: ${data.final_m1}, Bot2: ${data.final_m2}</h3>`;
             resultsHtml += `<h3>Result: ${data.winner}</h3>`;
             document.getElementById('results').innerHTML = resultsHtml;
+            document.getElementById("results").style.visibility = "hidden";
         })
         .catch(error => console.error('Error playing game:', error));
     });
