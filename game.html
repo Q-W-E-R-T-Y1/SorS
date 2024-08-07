@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split or Steal Game</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<body>
+    <div class="nav-container">
+        <ul class="nav-list">
+            <li id="title"><a href="index.html">Home</a></li>
+            <li><a href="game.html">Game</a></li>
+            <li><a href="strategies.html">Strategies</a></li>
+        </ul>
+    </div>
+    <form id="gameForm">
+        <label for="strategy1">Strategy for Bot1:</label>
+        <select id="strategy1" name="strategy1"></select>
+        <br><br>
+        <label for="strategy2">Strategy for Bot2:</label>
+        <select id="strategy2" name="strategy2"></select>
+        <br><br>
+        <label for="rounds">Number of rounds:</label>
+        <input type="number" id="rounds" name="rounds" min="1" max="100" value="10">
+        <br><br>
+        <button type="submit">Play Game</button>
+    </form>
+    <div id="results"></div>
+    <canvas id="moneyChart" width="400" height="200"></canvas>
+</body>
+</html>
