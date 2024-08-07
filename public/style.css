@@ -66,7 +66,7 @@ form {
 #results {
   visibility: hidden;
   opacity: 0;
-  width:45%;
+  width: 45%;
 }
 
 label {
@@ -108,3 +108,17 @@ button:hover {
   background-color: #218838;
 }
 
+.strat {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  width: 10em;
+  height: 5em;
+  margin: 10px; /* Add margin to each strategy box */
+  padding: 1.5em;
+  border-radius: .5em;
+}
+
+#scont {
+  display: flex;
+  flex-wrap: wrap; /* Allow items to wrap to the next row */
+  justify-content: center; /* Center the items */
+}
