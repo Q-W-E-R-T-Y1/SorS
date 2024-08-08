@@ -31,6 +31,17 @@ body {
 .nav-list li a {
   text-decoration: none;
   color: white;
+  /* vertical-align: auto; */
+}
+
+.nav-list li a:hover {
+  text-decoration: underline;
+  color: #00ff6a;
+  transition: .5s ease-in-out;
+}
+
+.active {
+  text-decoration: underline;
 }
 
 #title {
